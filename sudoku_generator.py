@@ -2,14 +2,14 @@ import random as rnd
 
 
 def print_matrix(matrix):
-    for index in range(0, len(matrix)):
+    for index in range(len(matrix)):
         print(matrix[index])
 
 
 def whats_missing(numbers):
     nums = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     missing = []
-    for index in range(0, 9):
+    for index in range(9):
         if nums[index] not in numbers:
             missing.append(nums[index])
     return missing
@@ -40,8 +40,8 @@ def get_cell(matrix, row, column):
 
 def rules_checker(matrix, row, column):
     numbers = []
-    line0 = [matrix[row][index] for index in range(0, 9)]
-    line1 = [matrix[index][column] for index in range(0, 9)]
+    line0 = [matrix[row][index] for index in range(9)]
+    line1 = [matrix[index][column] for index in range(9)]
     cell = get_cell(matrix, row, column)
 
     numbers.extend(line0)
@@ -59,18 +59,16 @@ def rules_checker(matrix, row, column):
     return matrix
 
 
-square = [[0, 0, 0, 0, 0, 0, 0, 0, 0] for i in range(0, 9)]
+square = [[0, 0, 0, 0, 0, 0, 0, 0, 0] for i in range(9)]
 print_matrix(square)
 print('-->')
 
-while True:
-    for i in range(0, 9):
-        for j in range(0, 9):
+cond = [0 in square[index] for index in range(9)]
+while any(cond):
+    square = [[0, 0, 0, 0, 0, 0, 0, 0, 0] for i in range(9)]
+    for i in range(9):
+        for j in range(9):
             square = rules_checker(square, i, j)
-    cond = [0 in square[index] for index in range(0, 9)]
-    if any(cond):
-        square = [[0, 0, 0, 0, 0, 0, 0, 0, 0] for i in range(0, 9)]
-    else:
-        break
+    cond = [0 in square[index] for index in range(9)]
 
 print_matrix(square)
